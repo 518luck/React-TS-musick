@@ -1,7 +1,6 @@
-
 {
-  "_comment":".prettierrc 后面的rc为 （运行时配置） 的缩写，resource configuration 的缩写，这是一种历史遗留的命名惯例。",
-  "comments":[
+  "_comment": ".prettierrc 后面的rc为 （运行时配置） 的缩写，resource configuration 的缩写，这是一种历史遗留的命名惯例。",
+  "comments": [
     "多行注释",
     "useTabs:使用空格缩进，而不是制表符",
     "tabWidth:tab是空格的情况下,是几个空格,选择2个空格",
