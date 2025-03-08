@@ -1,0 +1,16 @@
+
+# 这个插件可以让所有的编辑器即使不安装代码格式化依旧可以保证统一风格
+# editorconfig(https://editorconfig.org)
+root = true
+
+[*] # 表示所有文件都适用的这个配置
+charset = utf-8 # 表示编码格式
+indent_style = space # 表示缩进方式(tab/space)
+indent_size = 2 # 表示缩进大小
+end_of_line = lf # 表示换行符 (lf/crlf/cr/)
+trim_trailing_whitespace = true # 表示删除行尾的空白
+insert_final_newline = true # 表示在文件末尾插入一个换行符
+
+[*.md] # 表示只对 Markdown 适用以下规则
+max_line_length = off # 表示不检查行长度
+trim_trailing_whitespace = false # 表示不删除行尾的空白
