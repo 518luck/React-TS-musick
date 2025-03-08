@@ -42,6 +42,7 @@
     ]
   },
   "devDependencies": {
-    "@craco/craco": "^7.0.0-alpha.9"
+    "@craco/craco": "^7.0.0-alpha.9",
+    "prettier": "^3.5.3"
   }
 }

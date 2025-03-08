@@ -1,0 +1,19 @@
+
+{
+  "_comment":".prettierrc 后面的rc为 （运行时配置） 的缩写，resource configuration 的缩写，这是一种历史遗留的命名惯例。",
+  "comments":[
+    "多行注释",
+    "useTabs:使用空格缩进，而不是制表符",
+    "tabWidth:tab是空格的情况下,是几个空格,选择2个空格",
+    "printWidth:当行字符串的长度，超过80个字符，就会换行,笔记本一般80,宽一点的屏幕可以多一些",
+    "singleQuote:单引号还是双引号 选择true,使用单引号",
+    "trailingComma:尾随逗号，选择none,不使用尾随逗号",
+    "semi:语句后是否需要分号，选择false,不使用分号"
+  ],
+  "useTabs": false,
+  "tabWidth": 2,
+  "printWidth": 80,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "semi": false
+}
