@@ -2,6 +2,10 @@
 
 > 如果觉得不错，或者对你有帮助，点一个star~ coderwhy
 
+## 1.CSS重置
+
+- npm install normalize.css
+
 ### 1.1. 项目简介
 
 使用React编写的云音乐PC Web项目，接口来源于开源的接口，自己已经做了部署。
