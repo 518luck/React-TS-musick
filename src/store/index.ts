@@ -1,4 +1,3 @@
-import { TypedUseSelectorHook } from './../../node_modules/react-redux/src/types'
 // 导入 configureStore 函数，用于配置和创建 Redux 应用的 store
 import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from './modules/counter' // 这里就是导入的 reducer
@@ -6,8 +5,7 @@ import {
   useSelector,
   TypedUseSelectorHook,
   useDispatch,
-  shallowEqual,
-  EqualityFn
+  shallowEqual
 } from 'react-redux'
 
 // 创建 Redux 应用的 store
@@ -30,11 +28,5 @@ export const useAppSelector: TypedUseSelectorHook<IRootState> = useSelector
 export const useAppDispatch: () => DispatchType = useDispatch
 export const shallowEqualApp = shallowEqual
 
-export interface TypedUseSelectorHook<TState> {
-  <TSelected>(
-    selector: (state: TState) => TSelected,
-    equalityFn?: EqualityFn<TSelected>
-  ): TSelected
-}
 // 将创建的 store 导出，以便在应用中使用
 export default store
