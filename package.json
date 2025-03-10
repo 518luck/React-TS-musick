@@ -12,7 +12,7 @@
     "@types/node": "^16.18.126",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "axios": "^1.8.2",
+    "axios": "^1.2.0",
     "craco-less": "^2.1.0-alpha.0",
     "normalize.css": "^8.0.1",
     "react": "^19.0.0",
