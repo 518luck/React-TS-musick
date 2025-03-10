@@ -4,17 +4,23 @@ import { Suspense } from 'react'
 // Suspense 负责处理加载过程中的等待和显示加载中的 UI（通过 fallback 属性）。
 import { useRoutes, Link } from 'react-router-dom'
 import routes from '@/router'
-import { useSelector, shallowEqual } from 'react-redux'
-import { useAppSelector } from './store'
+import { useAppSelector, useAppDispatch, shallowEqualApp } from './store'
+import { changeMessagAction } from './store/modules/counter'
 
 function App() {
-  const { count } = useAppSelector(
+  const { count, message } = useAppSelector(
     (state) => ({
       count: state.counter.count,
-      name: state.counter.name
+      message: state.counter.message
     }),
-    shallowEqual
+    shallowEqualApp
   )
+
+  const dispatch = useAppDispatch()
+  // 事件处理函数
+  function hnadleChangeMessage() {
+    dispatch(changeMessagAction('我是新消息'))
+  }
 
   return (
     <div className="App">
@@ -25,6 +31,8 @@ function App() {
         <Link to="/download">下载客户端</Link>
       </div>
       <h2>当前计数:{count}</h2>
+      <h2>当前消息:{message}</h2>
+      <button onClick={hnadleChangeMessage}>修改message</button>
       <Suspense fallback="loading...">
         <div className="main">{useRoutes(routes)}</div>
       </Suspense>
