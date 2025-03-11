@@ -2,6 +2,7 @@ import { memo, useEffect } from 'react'
 import type { FC, ReactNode } from 'react'
 import { useAppDispatch } from '@/store'
 import { fetchBannerDataAction } from './store/recommend'
+import TopBanner from './c-cpns/top-banner'
 
 interface IProps {
   children?: ReactNode
@@ -15,7 +16,12 @@ const Recommend: FC<IProps> = () => {
     // 但请求的结果不会被 Redux 捕获，也不会更新全局状态。
   }, [])
 
-  return <div>Recommend</div>
+  return (
+    <div>
+      <TopBanner></TopBanner>
+      Recommend
+    </div>
+  )
 }
 
 export default memo(Recommend)
