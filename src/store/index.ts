@@ -1,6 +1,5 @@
 // 导入 configureStore 函数，用于配置和创建 Redux 应用的 store
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from './modules/counter' // 这里就是导入的 reducer
 import {
   useSelector,
   TypedUseSelectorHook,
@@ -8,12 +7,16 @@ import {
   shallowEqual
 } from 'react-redux'
 
+import counterReducer from './modules/counter' // 这里就是导入的 reducer
+import recommendReducer from '@/views/discover/c-views/recommend/store/recommend'
+
 // 创建 Redux 应用的 store
 // 此处传入的配置对象中，reducer 属性为空对象，表示当前应用尚未定义任何状态管理逻辑
 // 在实际应用中，应在此处传入应用的 rootReducer
 const store = configureStore({
   reducer: {
-    counter: counterReducer
+    counter: counterReducer,
+    recommend: recommendReducer
   }
 })
 
