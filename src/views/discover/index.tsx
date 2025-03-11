@@ -2,6 +2,8 @@ import { memo, Suspense } from 'react'
 import type { FC, ReactNode } from 'react'
 import { Outlet, Link } from 'react-router-dom'
 
+import NavBar from '@/views/discover/c-cpns/nva-bar'
+
 interface Iprops {
   children?: ReactNode
 }
@@ -9,6 +11,7 @@ interface Iprops {
 const Discover: FC<Iprops> = (props) => {
   return (
     <div>
+      <NavBar></NavBar>
       <div>
         <Link to="/discover/recommend">推荐</Link>
         <Link to="/discover/ranking">排行榜</Link>
