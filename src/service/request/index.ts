@@ -40,19 +40,19 @@ class HYRequest {
     // 响应的时候,先添加的拦截器先执行
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('所有的实例都有的拦截器: 请求成功拦截')
+        // console.log('所有的实例都有的拦截器: 请求成功拦截')
 
         return config
       },
       (err) => {
-        console.log('所有的实例都有的拦截器: 请求失败拦截')
+        // console.log('所有的实例都有的拦截器: 请求失败拦截')
         return err
       }
     )
 
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('所有的实例都有的拦截器: 响应成功拦截')
+        // console.log('所有的实例都有的拦截器: 响应成功拦截')
         // 因为我们需要的就是res.data,所以我们可以在所有请求实例的请求的响应拦截器里面,直接把res.data返回,这样我们就可以直接使用了
         const data = res.data
         // 判断当HttpErrorCode是200的时候,服务端和客户端一块自定义的错误信息
@@ -63,7 +63,7 @@ class HYRequest {
         }
       },
       (err) => {
-        console.log('所有的实例都有的拦截器: 响应失败拦截')
+        // console.log('所有的实例都有的拦截器: 响应失败拦截')
         // 判断不同的HttpErrorCode显示不同的错误信息
         if (err.response.status === 404) {
           console.log('404的错误~')
