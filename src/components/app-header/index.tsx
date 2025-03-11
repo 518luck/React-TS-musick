@@ -37,7 +37,7 @@ const AppHeader: FC<IProps> = () => {
             })}
           </div>
         </HeaderLeft>
-        <HeaderRight>Right</HeaderRight>
+        <HeaderRight></HeaderRight>
       </div>
     </HeaderWrapper>
   )
