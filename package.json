@@ -58,6 +58,7 @@
     "eslint-plugin-react": "^7.37.4",
     "globals": "^16.0.0",
     "prettier": "^3.5.3",
+    "styled-components": "^6.1.15",
     "typescript-eslint": "^8.26.0"
   }
 }
