@@ -36,11 +36,12 @@ const TopBanner: FC<Iprops> = () => {
   }
   function handleBeforeChange(current: number, next: number) {
     console.log(current, next)
-    setCurrentIndex(-1)
+    // setCurrentIndex(-1)
   }
 
   /* 获取背景图片 */
   let bgImageUrl
+  bgImageUrl = banners[0]?.imageUrl + '?imageView&blur=40x20' // 默认第一张
   if (currentIndex >= 0) {
     bgImageUrl = banners[currentIndex]?.imageUrl + '?imageView&blur=40x20'
   }

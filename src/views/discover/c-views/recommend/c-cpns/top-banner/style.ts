@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 export const BannerWrapper = styled.div`
+  /* 在BannerWrapper样式中添加 */
+  transition: background 0.5s ease-in-out;
   .banner {
     height: 270px;
     display: flex;
