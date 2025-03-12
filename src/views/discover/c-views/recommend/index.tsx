@@ -1,7 +1,10 @@
 import { memo, useEffect } from 'react'
 import type { FC, ReactNode } from 'react'
 import { useAppDispatch } from '@/store'
-import { fetchBannerDataAction } from './store/recommend'
+import {
+  fetchBannerDataAction,
+  fetchHotRecommendAction
+} from './store/recommend'
 import TopBanner from './c-cpns/top-banner'
 import HotRecommend from './c-cpns/hot-recommend'
 import { RecommendWrapper } from './style'
@@ -16,6 +19,7 @@ const Recommend: FC<IProps> = () => {
     dispatch(fetchBannerDataAction())
     // 直接调用它，虽然可以发起异步请求，
     // 但请求的结果不会被 Redux 捕获，也不会更新全局状态。
+    dispatch(fetchHotRecommendAction())
   }, [])
 
   return (

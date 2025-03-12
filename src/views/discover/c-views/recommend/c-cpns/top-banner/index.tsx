@@ -34,10 +34,6 @@ const TopBanner: FC<Iprops> = () => {
   function handleAfterChane(current: number) {
     setCurrentIndex(current)
   }
-  function handleBeforeChange(current: number, next: number) {
-    console.log(current, next)
-    // setCurrentIndex(-1)
-  }
 
   /* 获取背景图片 */
   let bgImageUrl
@@ -56,9 +52,8 @@ const TopBanner: FC<Iprops> = () => {
           <Carousel
             autoplay
             ref={bannerRef}
-            effect={'scrollx'}
+            effect={'fade'}
             dots={false}
-            beforeChange={handleBeforeChange}
             afterChange={handleAfterChane}
           >
             {banners.map((item) => {
