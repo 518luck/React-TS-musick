@@ -14,7 +14,7 @@ interface Iprops {
 const AreaHeaderV1: FC<Iprops> = (porps) => {
   const {
     title = '默认标题',
-    keywords = ['欧美', '日本', '韩国'],
+    keywords = [],
     moreText = '更多',
     moreLink = '/'
   } = porps
