@@ -1,4 +1,4 @@
-import { memo, useRef } from 'react'
+import { memo, useRef, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import { Carousel } from 'antd'
 import type { CarouselRef } from 'antd/es/carousel'
@@ -11,6 +11,7 @@ interface Iprops {
 }
 
 const TopBanner: FC<Iprops> = () => {
+  const [currentIndex, setCurrentIndex] = useState(0)
   const bannerRef = useRef<CarouselRef>(null)
   /* 从store中获取数据 */
   const { banners } = useAppSelector(
@@ -29,12 +30,26 @@ const TopBanner: FC<Iprops> = () => {
   function handleNextClick() {
     bannerRef.current?.next()
   }
+  function handleAfterChane(current: number) {
+    setCurrentIndex(current)
+  }
 
+  /* 获取背景图片 */
+  const bgImageUrl = banners[currentIndex]?.imageUrl + '?imageView&blur=40x20'
   return (
-    <BannerWrapper>
+    <BannerWrapper
+      style={{
+        background: `url('${bgImageUrl}') center center / 6000px`
+      }}
+    >
       <div className="banner wrap-v2">
         <BannerLeft>
-          <Carousel autoplay ref={bannerRef}>
+          <Carousel
+            autoplay
+            ref={bannerRef}
+            // effect={'fade'}
+            afterChange={handleAfterChane}
+          >
             {banners.map((item) => {
               return (
                 <div className="banner-item" key={item.imageUrl}>

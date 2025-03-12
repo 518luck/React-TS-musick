@@ -11,7 +11,6 @@ export const fetchBannerDataAction = createAsyncThunk(
   'banners',
   async (arg, { dispatch }) => {
     const res: any = await gerBanners()
-    console.log(res)
     dispatch(changeBannerAction(res.banners))
   }
 )
