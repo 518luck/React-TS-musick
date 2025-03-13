@@ -7,6 +7,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 //    它会返回一个特殊的函数，这个函数可以直接被   dispatch   调用。
 import { getBanners, getHotRecommend, getNewAlbum } from '../service/recommend'
 
+/* 
 export const fetchBannerDataAction = createAsyncThunk(
   'banners',
   async (arg, { dispatch }) => {
@@ -28,6 +29,23 @@ export const fetchNweAlbumAction = createAsyncThunk(
   async (arg, { dispatch }) => {
     const res: any = await getNewAlbum()
     dispatch(changeNewAlbumAction(res.albums))
+  }
+) 
+  */
+
+export const fetchRecommendDataAction = createAsyncThunk(
+  'fetchdata',
+  (_, { dispatch }) => {
+    // 1.获取轮播图数据
+    getBanners().then((res: any) => {
+      dispatch(changeBannerAction(res.banners))
+    })
+    getHotRecommend(8).then((res: any) => {
+      dispatch(changeHotRecommendAction(res.result))
+    })
+    getNewAlbum().then((res: any) => {
+      dispatch(changeNewAlbumAction(res.albums))
+    })
   }
 )
 
