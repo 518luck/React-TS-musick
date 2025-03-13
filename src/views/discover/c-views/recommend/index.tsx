@@ -1,11 +1,13 @@
 import { memo, useEffect } from 'react'
 import type { FC, ReactNode } from 'react'
+
 import { useAppDispatch } from '@/store'
 import { fetchRecommendDataAction } from './store/recommend'
+import { RecommendWrapper } from './style'
 import TopBanner from './c-cpns/top-banner'
 import HotRecommend from './c-cpns/hot-recommend'
 import NewAlbum from './c-cpns/new-album'
-import { RecommendWrapper } from './style'
+import TopRanking from './c-cpns/top-ranking'
 
 interface IProps {
   children?: ReactNode
@@ -27,6 +29,7 @@ const Recommend: FC<IProps> = () => {
           <div className="left">
             <HotRecommend></HotRecommend>
             <NewAlbum></NewAlbum>
+            <TopRanking></TopRanking>
           </div>
           <div className="right">right</div>
         </div>
