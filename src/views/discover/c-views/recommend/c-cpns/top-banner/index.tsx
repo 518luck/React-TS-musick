@@ -26,7 +26,6 @@ const TopBanner: FC<Iprops> = () => {
   // 想要调用组件的方法,需要先拿到组件
   function handlePrevClick() {
     bannerRef.current?.prev()
-    console.log(bannerRef)
   }
   function handleNextClick() {
     bannerRef.current?.next()

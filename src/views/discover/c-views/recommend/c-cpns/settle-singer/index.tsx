@@ -1,9 +1,9 @@
 import { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 
+import { useAppSelector, shallowEqualApp } from '@/store'
 import { SingerWrapper } from './style'
 import AreaHeaderV2 from '@/components/area-heder-v2'
-import { useAppSelector } from '@/store'
 import { getImageSize } from '@/utils/format'
 
 interface Iprops {
@@ -11,9 +11,12 @@ interface Iprops {
 }
 
 const SerrleSinger: FC<Iprops> = (props) => {
-  const { settleSingers } = useAppSelector((state) => ({
-    settleSingers: state.recommend.settleSingers
-  }))
+  const { settleSingers } = useAppSelector(
+    (state) => ({
+      settleSingers: state.recommend.settleSingers
+    }),
+    shallowEqualApp
+  )
   return (
     <SingerWrapper>
       <AreaHeaderV2
@@ -24,7 +27,7 @@ const SerrleSinger: FC<Iprops> = (props) => {
       <div className="artists">
         {settleSingers.map((item) => {
           return (
-            <a href="#/discover/artist" className="item">
+            <a href="#/discover/artist" className="item" key={item.picUrl}>
               <img src={getImageSize(item.picUrl, 80)} alt="" />
               <div className="info">
                 <div className="name">{item.name}</div>
