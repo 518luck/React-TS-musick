@@ -9,36 +9,38 @@ import {
   getBanners,
   getHotRecommend,
   getNewAlbum,
-  getPlaylistDetail
+  getPlaylistDetail,
+  getArtistList
 } from '../service/recommend'
 import { log } from 'console'
 import { Breadcrumb } from 'antd'
 
-/* 
-export const fetchBannerDataAction = createAsyncThunk(
-  'banners',
-  async (arg, { dispatch }) => {
-    const res: any = await getBanners()
-    dispatch(changeBannerAction(res.banners))
-  }
-)
+/*  
+  export const fetchBannerDataAction = createAsyncThunk(
+    'banners',
+    async (arg, { dispatch }) => {
+      const res: any = await getBanners()
+      dispatch(changeBannerAction(res.banners))
+    }
+  )
 
-export const fetchHotRecommendAction = createAsyncThunk(
-  'hotRecommend',
-  async (arg, { dispatch }) => {
-    const res: any = await getHotRecommend(8)
-    dispatch(changeHotRecommendAction(res.result))
-  }
-)
+  export const fetchHotRecommendAction = createAsyncThunk(
+    'hotRecommend',
+    async (arg, { dispatch }) => {
+      const res: any = await getHotRecommend(8)
+      dispatch(changeHotRecommendAction(res.result))
+    }
+  )
 
-export const fetchNweAlbumAction = createAsyncThunk(
-  'newAlbum',
-  async (arg, { dispatch }) => {
-    const res: any = await getNewAlbum()
-    dispatch(changeNewAlbumAction(res.albums))
-  }
-) 
-  */
+  export const fetchNweAlbumAction = createAsyncThunk(
+    'newAlbum',
+    async (arg, { dispatch }) => {
+      const res: any = await getNewAlbum()
+      dispatch(changeNewAlbumAction(res.albums))
+    }
+  ) 
+  
+*/
 
 export const fetchRecommendDataAction = createAsyncThunk(
   'fetchdata',
@@ -53,6 +55,9 @@ export const fetchRecommendDataAction = createAsyncThunk(
     getNewAlbum().then((res: any) => {
       dispatch(changeNewAlbumAction(res.albums))
     })
+    getArtistList(5).then((res: any) => {
+      dispatch(changeArtisListAction(res.artists))
+    })
   }
 )
 
@@ -63,22 +68,22 @@ export const fetchRankingDataAction = createAsyncThunk(
   (_, { dispatch }) => {
     // 1.每个数组单独处理
     /*    
-    for (const id of reankgIds) {
-      getPlaylistDetail(id).then((res) => {
-        console.log(res)
-        switch (id) {
-          case 19723756:
-            console.log('飙升榜', res)
-            break
-          case 3779629:
-            console.log('新歌榜', res)
-            break
-          case 2884035:
-            console.log('原创榜', res)
-            break
-        }
-      })
-    }
+      for (const id of reankgIds) {
+        getPlaylistDetail(id).then((res) => {
+          console.log(res)
+          switch (id) {
+            case 19723756:
+              console.log('飙升榜', res)
+              break
+            case 3779629:
+              console.log('新歌榜', res)
+              break
+            case 2884035:
+              console.log('原创榜', res)
+              break
+          }
+        })
+      }
     */
     //  2.同一处理
     // 保障一:获取所有的结果后,进行dispatch操作
@@ -100,13 +105,15 @@ interface IRecommendState {
   hotRecommends: any[]
   newAlbums: any[]
   rankings: any[]
+  settleSingers: any[]
 }
 
 const initialState: IRecommendState = {
   banners: [],
   hotRecommends: [],
   newAlbums: [],
-  rankings: []
+  rankings: [],
+  settleSingers: []
 }
 
 const recommendSlice = createSlice({
@@ -124,6 +131,9 @@ const recommendSlice = createSlice({
     },
     changeRankingAction(state, { payload }) {
       state.rankings = payload
+    },
+    changeArtisListAction(state, { payload }) {
+      state.settleSingers = payload
     }
   }
   /*  
@@ -138,7 +148,8 @@ export const {
   changeBannerAction,
   changeHotRecommendAction,
   changeNewAlbumAction,
-  changeRankingAction
+  changeRankingAction,
+  changeArtisListAction
 } = recommendSlice.actions
 
 export default recommendSlice.reducer
