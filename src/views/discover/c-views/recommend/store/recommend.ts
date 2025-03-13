@@ -5,7 +5,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 //    它会自动处理异步逻辑，并且与 Redux 的状态管理无缝集成。
 //  当你使用   createAsyncThunk   创建一个异步操作时，
 //    它会返回一个特殊的函数，这个函数可以直接被   dispatch   调用。
-import { getBanners, getHotRecommend } from '../service/recommend'
+import { getBanners, getHotRecommend, getNewAlbum } from '../service/recommend'
 
 export const fetchBannerDataAction = createAsyncThunk(
   'banners',
@@ -19,19 +19,28 @@ export const fetchHotRecommendAction = createAsyncThunk(
   'hotRecommend',
   async (arg, { dispatch }) => {
     const res: any = await getHotRecommend(8)
-    // console.log(res)
     dispatch(changeHotRecommendAction(res.result))
+  }
+)
+
+export const fetchNweAlbumAction = createAsyncThunk(
+  'newAlbum',
+  async (arg, { dispatch }) => {
+    const res: any = await getNewAlbum()
+    dispatch(changeNewAlbumAction(res.albums))
   }
 )
 
 interface IRecommendState {
   banners: any[]
   hotRecommends: any[]
+  newAlbums: any[]
 }
 
 const initialState: IRecommendState = {
   banners: [],
-  hotRecommends: []
+  hotRecommends: [],
+  newAlbums: []
 }
 
 const recommendSlice = createSlice({
@@ -43,6 +52,9 @@ const recommendSlice = createSlice({
     },
     changeHotRecommendAction(state, { payload }) {
       state.hotRecommends = payload
+    },
+    changeNewAlbumAction(state, { payload }) {
+      state.newAlbums = payload
     }
   }
   /*  
@@ -53,7 +65,10 @@ const recommendSlice = createSlice({
   } 
     */
 })
-export const { changeBannerAction, changeHotRecommendAction } =
-  recommendSlice.actions
+export const {
+  changeBannerAction,
+  changeHotRecommendAction,
+  changeNewAlbumAction
+} = recommendSlice.actions
 
 export default recommendSlice.reducer

@@ -5,6 +5,8 @@ import { CarouselRef } from 'antd/es/carousel'
 
 import { AlbumWrapper } from './style'
 import AreaHeaderV1 from '@/components/area-header-v1'
+import { useAppSelector, shallowEqualApp } from '@/store'
+import NewAlbumItem from '@/components/new-album-item'
 
 interface Iprops {
   children?: ReactNode
@@ -12,6 +14,12 @@ interface Iprops {
 
 const NewAlbum: FC<Iprops> = () => {
   const bannerRef = useRef<CarouselRef>(null)
+  const { newAlbums } = useAppSelector(
+    (state) => ({
+      newAlbums: state.recommend.newAlbums
+    }),
+    shallowEqualApp
+  )
 
   // 事件处理函数
   // 想要调用组件的方法,需要先拿到组件
@@ -36,9 +44,28 @@ const NewAlbum: FC<Iprops> = () => {
             dots={false}
             speed={2000}
           >
-            {[1, 2].map((item) => {
-              return <h1>{item}</h1>
-            })}
+            {newAlbums.length > 0 ? (
+              [0, 1].map((item) => {
+                return (
+                  <div key={item}>
+                    <div className="album-list">
+                      {newAlbums
+                        .slice(item * 5, (item + 1) * 5)
+                        .map((album) => {
+                          return (
+                            <NewAlbumItem
+                              key={album.id}
+                              itemData={album}
+                            ></NewAlbumItem>
+                          )
+                        })}
+                    </div>
+                  </div>
+                )
+              })
+            ) : (
+              <div>Loading...</div>
+            )}
           </Carousel>
         </div>
         <button

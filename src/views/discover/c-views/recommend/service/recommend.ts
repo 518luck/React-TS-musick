@@ -14,3 +14,9 @@ export function getHotRecommend(limit: number = 30) {
     }
   })
 }
+
+export function getNewAlbum() {
+  return hyRequest.get({
+    url: '/album/newest'
+  })
+}

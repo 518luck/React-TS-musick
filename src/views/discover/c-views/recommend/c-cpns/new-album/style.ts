@@ -35,22 +35,13 @@ export const AlbumWrapper = styled.div`
 
     .banner {
       overflow: hidden;
-    }
-  }
+      flex: 1;
 
-  .album {
-    width: 640px;
-    height: 150px;
-
-    .ant-carousel .slick-slide {
-      height: 150px;
-      overflow: hidden;
-    }
-
-    .page {
-      display: flex !important;
-      justify-content: space-between;
-      align-items: center;
+      .album-list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
     }
   }
 `
