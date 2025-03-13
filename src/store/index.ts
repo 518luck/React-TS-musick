@@ -9,6 +9,7 @@ import {
 
 import counterReducer from './modules/counter' // 这里就是导入的 reducer
 import recommendReducer from '@/views/discover/c-views/recommend/store/recommend'
+import playerReducer from '@/views/player/store/player'
 
 // 创建 Redux 应用的 store
 // 此处传入的配置对象中，reducer 属性为空对象，表示当前应用尚未定义任何状态管理逻辑
@@ -16,7 +17,8 @@ import recommendReducer from '@/views/discover/c-views/recommend/store/recommend
 const store = configureStore({
   reducer: {
     counter: counterReducer,
-    recommend: recommendReducer
+    recommend: recommendReducer,
+    player: playerReducer
   }
 })
 

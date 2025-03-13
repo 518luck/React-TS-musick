@@ -9,12 +9,18 @@ import {
   BarPlayerInfo,
   BarOperator
 } from './style'
+import { useAppSelector } from '@/store'
+import { getImageSize } from '@/utils/format'
 
 interface Iprops {
   children?: ReactNode
 }
 
-const AppPlayerBar: FC<Iprops> = (props) => {
+const AppPlayerBar: FC<Iprops> = () => {
+  const { currentSong } = useAppSelector((state) => ({
+    currentSong: state.player.currentSong
+  }))
+
   return (
     <PlayerBarWrapper className="sprite_playbar">
       <div className="content wrap-v2">
@@ -26,14 +32,15 @@ const AppPlayerBar: FC<Iprops> = (props) => {
         <BarPlayerInfo>
           <Link to="/player">
             <img
-              src="https://p1.music.126.net/zpmOTZw533nltCQJtXC8Rg==/109951168215962168.jpg?param=34y34"
+              className="image"
+              src={getImageSize(currentSong?.al?.picUrl, 40)}
               alt=""
             />
           </Link>
           <div className="info">
             <div className="song">
-              <span className="song-name">海阔天空</span>
-              <span className="singer-name">永春</span>
+              <span className="song-name">{currentSong?.name}</span>
+              <span className="singer-name">{currentSong?.ar[0]?.name}</span>
             </div>
             <div className="progress">
               <Slider />
