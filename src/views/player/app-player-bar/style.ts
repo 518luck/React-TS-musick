@@ -110,7 +110,7 @@ export const BarPlayerInfo = styled.div`
           height: 24px;
           border: none;
           margin-top: -7px;
-          background: url(${require('@/assets/img/sprite_icon.png')}) 0 -250px;
+          background: url(${require('@/assets/img/sprite_icon.png')}) 0 -248px;
           &::after {
             display: none;
           }

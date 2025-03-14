@@ -12,6 +12,7 @@ import {
 import { useAppSelector, shallowEqualApp } from '@/store'
 import { getImageSize } from '@/utils/format'
 import { getPlayerUrl } from '@/utils/handle-player'
+import { formatTime } from '@/utils/format'
 
 interface Iprops {
   children?: ReactNode
@@ -22,6 +23,7 @@ const AppPlayerBar: FC<Iprops> = () => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [duration, setDuration] = useState(0)
+  const [currentTime, setCurrentTime] = useState(0)
 
   const { currentSong } = useAppSelector(
     (state) => ({
@@ -32,16 +34,18 @@ const AppPlayerBar: FC<Iprops> = () => {
 
   useEffect(() => {
     audioRef.current!.src = getPlayerUrl(currentSong.id)
-    audioRef.current
-      ?.play()
-      .then(() => {
-        setIsPlaying(true)
-        console.log('播放成功')
-      })
-      .catch((error) => {
-        setIsPlaying(false)
-        console.log('播放失败', error)
-      })
+    console.log(getPlayerUrl(currentSong.id))
+
+    // audioRef.current
+    //   ?.play()
+    //   .then(() => {
+    //     setIsPlaying(true)
+    //     console.log('播放成功')
+    //   })
+    //   .catch((error) => {
+    //     setIsPlaying(false)
+    //     console.log('播放失败', error)
+    //   })
     setDuration(currentSong.dt)
   }, [currentSong])
 
@@ -50,12 +54,19 @@ const AppPlayerBar: FC<Iprops> = () => {
     const currentTime = audioRef.current!.currentTime
     // 当前歌曲进度
     const progress = ((currentTime * 1000) / duration) * 100
+
     setProgress(progress)
+    setCurrentTime(currentTime * 1000)
+  }
+  function handleSliderChange(value: number) {
+    const currentTime = ((value / 100) * duration) / 1000
+    audioRef.current!.currentTime = currentTime
+    setCurrentTime(currentTime)
+    setProgress(value)
   }
 
   const handlePlayBtnClick = () => {
     const isPaused = audioRef.current!.paused
-    console.log(isPaused)
     isPaused
       ? audioRef.current?.play().catch(() => setIsPlaying(false))
       : audioRef.current?.pause()
@@ -87,11 +98,16 @@ const AppPlayerBar: FC<Iprops> = () => {
               <span className="singer-name">{currentSong?.ar[0]?.name}</span>
             </div>
             <div className="progress">
-              <Slider value={progress} step={0.1} />
+              <Slider
+                value={progress}
+                step={0.1}
+                tooltip={{ formatter: null }}
+                onChange={handleSliderChange}
+              />
               <div className="time">
-                <span className="current">00:52</span>
+                <span className="current">{formatTime(currentTime)}</span>
                 <span className="divider">/</span>
-                <span className="duration">04:02</span>
+                <span className="duration">{formatTime(duration)}</span>
               </div>
             </div>
           </div>
