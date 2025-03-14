@@ -6,7 +6,7 @@ interface IPlayerState {
 const initialState: IPlayerState = {
   currentSong: {
     name: '温柔',
-    id: 386538,
+    id: 33894312,
     pst: 0,
     t: 0,
     ar: [

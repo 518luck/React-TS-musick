@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Slider } from 'antd'
@@ -9,24 +9,68 @@ import {
   BarPlayerInfo,
   BarOperator
 } from './style'
-import { useAppSelector } from '@/store'
+import { useAppSelector, shallowEqualApp } from '@/store'
 import { getImageSize } from '@/utils/format'
+import { getPlayerUrl } from '@/utils/handle-player'
 
 interface Iprops {
   children?: ReactNode
 }
 
 const AppPlayerBar: FC<Iprops> = () => {
-  const { currentSong } = useAppSelector((state) => ({
-    currentSong: state.player.currentSong
-  }))
+  const audioRef = useRef<HTMLMediaElement>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [duration, setDuration] = useState(0)
+
+  const { currentSong } = useAppSelector(
+    (state) => ({
+      currentSong: state.player.currentSong
+    }),
+    shallowEqualApp
+  )
+
+  useEffect(() => {
+    audioRef.current!.src = getPlayerUrl(currentSong.id)
+    audioRef.current
+      ?.play()
+      .then(() => {
+        setIsPlaying(true)
+        console.log('播放成功')
+      })
+      .catch((error) => {
+        setIsPlaying(false)
+        console.log('播放失败', error)
+      })
+    setDuration(currentSong.dt)
+  }, [currentSong])
+
+  function handleTimeUpdate() {
+    // 当前时间
+    const currentTime = audioRef.current!.currentTime
+    // 当前歌曲进度
+    const progress = ((currentTime * 1000) / duration) * 100
+    setProgress(progress)
+  }
+
+  const handlePlayBtnClick = () => {
+    const isPaused = audioRef.current!.paused
+    console.log(isPaused)
+    isPaused
+      ? audioRef.current?.play().catch(() => setIsPlaying(false))
+      : audioRef.current?.pause()
+    setIsPlaying(isPaused)
+  }
 
   return (
     <PlayerBarWrapper className="sprite_playbar">
       <div className="content wrap-v2">
-        <BarControl>
+        <BarControl $isPlaying={isPlaying}>
           <button className="btn sprite_playbar prev"></button>
-          <button className="btn sprite_playbar play"></button>
+          <button
+            className="btn sprite_playbar play"
+            onClick={handlePlayBtnClick}
+          ></button>
           <button className="btn sprite_playbar next"></button>
         </BarControl>
         <BarPlayerInfo>
@@ -43,7 +87,7 @@ const AppPlayerBar: FC<Iprops> = () => {
               <span className="singer-name">{currentSong?.ar[0]?.name}</span>
             </div>
             <div className="progress">
-              <Slider />
+              <Slider value={progress} step={0.1} />
               <div className="time">
                 <span className="current">00:52</span>
                 <span className="divider">/</span>
@@ -65,6 +109,7 @@ const AppPlayerBar: FC<Iprops> = () => {
           </div>
         </BarOperator>
       </div>
+      <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} />
     </PlayerBarWrapper>
   )
 }

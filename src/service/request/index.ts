@@ -56,7 +56,7 @@ class HYRequest {
         // 因为我们需要的就是res.data,所以我们可以在所有请求实例的请求的响应拦截器里面,直接把res.data返回,这样我们就可以直接使用了
         const data = res.data
         // 判断当HttpErrorCode是200的时候,服务端和客户端一块自定义的错误信息
-        if (data.returnCode === '-1001') {
+        if (data?.returnCode === '-1001') {
           console.log('请求失败~, 错误信息')
         } else {
           return data
