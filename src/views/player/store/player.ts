@@ -26,11 +26,15 @@ interface IPlayerState {
   currentSong: any
   lyrics: ILyric[]
   lyricIndex: number
+  playSongList: any[]
+  playSongIndex: number
 }
 const initialState: IPlayerState = {
   currentSong: {},
   lyrics: [],
-  lyricIndex: -1
+  lyricIndex: -1,
+  playSongList: [],
+  playSongIndex: -1
 }
 
 const playerSlice = createSlice({

@@ -1,7 +1,7 @@
 import { memo, useEffect, useRef, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { Slider } from 'antd'
+import { Slider, message } from 'antd'
 
 import {
   PlayerBarWrapper,
@@ -21,6 +21,7 @@ interface Iprops {
 
 const AppPlayerBar: FC<Iprops> = () => {
   const audioRef = useRef<HTMLMediaElement>(null)
+  const [messageApi] = message.useMessage()
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -73,6 +74,7 @@ const AppPlayerBar: FC<Iprops> = () => {
     // 用redux匹配歌词
     if (lyricIndex === index || index === -1) return
     dispatch(changeLyricIndexAction(index))
+
     console.log(lyrics[lyricIndex + 1].text)
   }
   function handleSliderChange(value: number) {
