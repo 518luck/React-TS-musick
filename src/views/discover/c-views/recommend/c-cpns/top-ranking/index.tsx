@@ -11,7 +11,7 @@ interface Iprops {
 }
 
 const TopRanking: FC<Iprops> = () => {
-  const { ranking } = useAppSelector(
+  const { ranking = [] } = useAppSelector(
     (state) => ({
       ranking: state.recommend.rankings
     }),

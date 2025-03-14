@@ -88,14 +88,14 @@ export const fetchRankingDataAction = createAsyncThunk(
     //  2.同一处理
     // 保障一:获取所有的结果后,进行dispatch操作
     // 保障二:获取到的结果一定是有正确的顺序
-    /* const promise: Promise<any>[] = []
+    const promise: Promise<any>[] = []
     for (const id of reankgIds) {
       promise.push(getPlaylistDetail(id))
     }
     Promise.all(promise).then((res) => {
       const playlists = res.map((item) => item.playlist)
       dispatch(changeRankingAction(playlists))
-    }) */
+    })
   }
 )
 

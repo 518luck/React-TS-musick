@@ -13,6 +13,7 @@ import { useAppSelector, shallowEqualApp } from '@/store'
 import { getImageSize } from '@/utils/format'
 import { getPlayerUrl } from '@/utils/handle-player'
 import { formatTime } from '@/utils/format'
+import { error } from 'console'
 
 interface Iprops {
   children?: ReactNode
@@ -34,7 +35,7 @@ const AppPlayerBar: FC<Iprops> = () => {
 
   useEffect(() => {
     audioRef.current!.src = getPlayerUrl(currentSong.id)
-    console.log(getPlayerUrl(currentSong.id))
+    console.log('播放歌曲Url', getPlayerUrl(currentSong.id))
 
     // audioRef.current
     //   ?.play()
@@ -68,7 +69,10 @@ const AppPlayerBar: FC<Iprops> = () => {
   const handlePlayBtnClick = () => {
     const isPaused = audioRef.current!.paused
     isPaused
-      ? audioRef.current?.play().catch(() => setIsPlaying(false))
+      ? audioRef.current?.play().catch((error) => {
+          console.log('播放失败', error)
+          setIsPlaying(false)
+        })
       : audioRef.current?.pause()
     setIsPlaying(isPaused)
   }
@@ -95,7 +99,7 @@ const AppPlayerBar: FC<Iprops> = () => {
           <div className="info">
             <div className="song">
               <span className="song-name">{currentSong?.name}</span>
-              <span className="singer-name">{currentSong?.ar[0]?.name}</span>
+              <span className="singer-name">{currentSong?.ar?.[0]?.name}</span>
             </div>
             <div className="progress">
               <Slider
