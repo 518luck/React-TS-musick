@@ -9,11 +9,11 @@ import {
   BarPlayerInfo,
   BarOperator
 } from './style'
-import { useAppSelector, shallowEqualApp } from '@/store'
+import { useAppSelector, shallowEqualApp, useAppDispatch } from '@/store'
 import { getImageSize } from '@/utils/format'
 import { getPlayerUrl } from '@/utils/handle-player'
 import { formatTime } from '@/utils/format'
-import { error } from 'console'
+import { changeLyricIndexAction } from '../store/player'
 
 interface Iprops {
   children?: ReactNode
@@ -26,12 +26,16 @@ const AppPlayerBar: FC<Iprops> = () => {
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
 
-  const { currentSong } = useAppSelector(
+  const { currentSong, lyrics, lyricIndex } = useAppSelector(
     (state) => ({
-      currentSong: state.player.currentSong
+      currentSong: state.player.currentSong,
+      lyrics: state.player.lyrics,
+      lyricIndex: state.player.lyricIndex
     }),
     shallowEqualApp
   )
+
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     audioRef.current!.src = getPlayerUrl(currentSong.id)
@@ -56,7 +60,20 @@ const AppPlayerBar: FC<Iprops> = () => {
     setProgress(progress)
     setCurrentTime(currentTime * 1000)
 
-    
+    // 匹配歌词
+    let index = lyrics.length - 1
+    for (let i = 0; i < lyrics.length; i++) {
+      const lyric = lyrics[i]
+      if (lyric.time > currentTime * 1000) {
+        index = i - 1
+        break
+      }
+    }
+
+    // 用redux匹配歌词
+    if (lyricIndex === index || index === -1) return
+    dispatch(changeLyricIndexAction(index))
+    console.log(lyrics[lyricIndex + 1].text)
   }
   function handleSliderChange(value: number) {
     const currentTime = ((value / 100) * duration) / 1000
