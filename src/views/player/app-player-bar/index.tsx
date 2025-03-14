@@ -35,8 +35,6 @@ const AppPlayerBar: FC<Iprops> = () => {
 
   useEffect(() => {
     audioRef.current!.src = getPlayerUrl(currentSong.id)
-    console.log('播放歌曲Url', getPlayerUrl(currentSong.id))
-
     // audioRef.current
     //   ?.play()
     //   .then(() => {
@@ -55,9 +53,10 @@ const AppPlayerBar: FC<Iprops> = () => {
     const currentTime = audioRef.current!.currentTime
     // 当前歌曲进度
     const progress = ((currentTime * 1000) / duration) * 100
-
     setProgress(progress)
     setCurrentTime(currentTime * 1000)
+
+    
   }
   function handleSliderChange(value: number) {
     const currentTime = ((value / 100) * duration) / 1000
